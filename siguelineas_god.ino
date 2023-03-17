@@ -44,7 +44,6 @@ void setup() {
 }
 
 void loop() {
-  Serial.println(digitalRead(button));
 
   //  
   if(buttonNoPress)
@@ -61,19 +60,22 @@ void loop() {
   else
   {
 
-        
+   
     //Reading Sensor Values
     int s1 = isWhite ^ digitalRead(ir1);  //Left Most Sensor
     int s2 = isWhite ^ digitalRead(ir2);  //Left Sensor
     int s3 = isWhite ^ digitalRead(ir3);  //Middle Sensor
     int s4 = isWhite ^ digitalRead(ir4);  //Right Sensor
     int s5 = isWhite ^ digitalRead(ir5);  //Right Most Sensor
-
+    //Serial.println(s1 + s2 + s3 + s4 + s5);
+  
     //if only middle sensor detects black line
     // L ooxoo R
     if(((s1 == 1) && (s2 == 1) && (s3 == 0) && (s4 == 1) && (s5 == 1)))
     {
       //going forward with full speed 
+      Serial.println("ooxoo");
+
       analogWrite(r1, 100); //you can adjust the speed of the motors from 0-100
       analogWrite(l2, 100); //you can adjust the speed of the motors from 0-125
       digitalWrite(mra, HIGH);
@@ -86,6 +88,9 @@ void loop() {
     // L oxooo R   
     if(((s1 == 1) && (s2 == 0) && (s3 == 1) && (s4 == 1) && (s5 == 1)))
     {
+      Serial.println("oxooo");
+
+
       //going right with full speed 
       analogWrite(r1, 125); //you can adjust the speed of the motors from 0-125
       analogWrite(l2, 100); //you can adjust the speed of the motors from 0-125
@@ -99,6 +104,8 @@ void loop() {
     //  xoooo   
     if(((s1 == 0) && (s2 == 1) && (s3 == 1) && (s4 == 1) && (s5 == 1)))
     {
+      Serial.println("xoooo");
+
       //going right with full speed 
       analogWrite(r1, 125); //you can adjust the speed of the motors from 0-125
       analogWrite(l2, 75); //you can adjust the speed of the motors from 0-125
@@ -112,6 +119,9 @@ void loop() {
     // oooxo
     if(((s1 == 1) && (s2 == 1) && (s3 == 1) && (s4 == 0) && (s5 == 1)))
     {
+      Serial.println("oooxo");
+
+
       //going left with full speed 
       analogWrite(r1, 100); //you can adjust the speed of the motors from 0-125
       analogWrite(l2, 125); //you can adjust the speed of the motors from 0-125
@@ -125,6 +135,8 @@ void loop() {
     // oooox
     if(((s1 == 1) && (s2 == 1) && (s3 == 1) && (s4 == 1) && (s5 == 0)))
     {
+      Serial.println("oooox");
+      
       //going left with full speed 
       analogWrite(r1, 75); //you can adjust the speed of the motors from 0-125
       analogWrite(l2, 125); //you can adjust the speed of the motors from 0-125
@@ -138,6 +150,9 @@ void loop() {
     // ooxxo    
     if(((s1 == 1) && (s2 == 1) && (s3 == 0) && (s4 == 0) && (s5 == 1)))
     {
+      Serial.println("ooxxo");
+
+
       //going left with full speed 
       analogWrite(r1, 75); //you can adjust the speed of the motors from 0-125
       analogWrite(l2, 100); //you can adjust the speed of the motors from 0-125
@@ -151,6 +166,8 @@ void loop() {
     // oxxoo
     if(((s1 == 1) && (s2 == 0) && (s3 == 0) && (s4 == 1) && (s5 == 1)))
     {
+      Serial.println("oxxoo");
+      
       //going right with full speed 
       analogWrite(r1, 100); //you can adjust the speed of the motors from 0-125
       analogWrite(l2, 75); //you can adjust the speed of the motors from 0-125
@@ -164,6 +181,8 @@ void loop() {
     // xxxoo
     if(((s1 == 0) && (s2 == 0) && (s3 == 0) && (s4 == 1) && (s5 == 1)))
     {
+      Serial.println("xxxoo");
+      
       //going right with full speed 
       analogWrite(r1, 25); //you can adjust the speed of the motors from 0-125
       analogWrite(l2, 125); //you can adjust the speed of the motors from 0-125
@@ -177,6 +196,8 @@ void loop() {
     // ooxxx
     if(((s1 == 1) && (s2 == 1) && (s3 == 0) && (s4 == 0) && (s5 == 0)))
     {
+            Serial.println("ooxxx");
+
       //going left with full speed 
       analogWrite(r1, 125); //you can adjust the speed of the motors from 0-125
       analogWrite(l2, 25); //you can adjust the speed of the motors from 0-125
@@ -188,8 +209,10 @@ void loop() {
 
     //siguelineas en el aire
     // xxxxx
-    if(isWhite ^ ((s1 == 0) && (s2 == 0) && (s3 == 0) && (s4 == 0) && (s5 == 0)))
+    if(((s1 == isWhite) && (s2 == isWhite) && (s3 == isWhite) && (s4 == isWhite) && (s5 == isWhite)))
     {
+            Serial.println("xxxxx");
+
       //stop
       digitalWrite(mra, LOW);
       digitalWrite(mrb, LOW);
